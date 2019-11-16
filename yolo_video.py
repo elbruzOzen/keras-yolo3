@@ -3,6 +3,10 @@ import argparse
 from yolo import YOLO, detect_video
 from PIL import Image
 
+# Other imports
+from development.log_manager import *
+
+
 def detect_img(yolo):
     while True:
         img = input('Input image filename:')
@@ -19,6 +23,7 @@ def detect_img(yolo):
 FLAGS = None
 
 if __name__ == '__main__':
+
     # class YOLO defines the default value, so suppress any default here
     parser = argparse.ArgumentParser(argument_default=argparse.SUPPRESS)
     '''
@@ -62,6 +67,9 @@ if __name__ == '__main__':
     )
 
     FLAGS = parser.parse_args()
+
+    # Clear if there is an old detection log file
+    remove_file('output/detection_log.txt')
 
     if FLAGS.image:
         """
